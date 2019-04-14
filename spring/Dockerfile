@@ -15,4 +15,4 @@ COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 ENV PORT=8080
 ENV MaxRAM=256m
-ENTRYPOINT ["java", "-XX:MaxRAM=${MaxRAM}", "-cp","app:app/lib/*", "-Dserver.port=${PORT}", "hello.Application"]
+ENTRYPOINT java -XX:MaxRAM=${MaxRAM} -cp app:app/lib/* -Dserver.port=${PORT} hello.Application
