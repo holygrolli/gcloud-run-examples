@@ -10,4 +10,5 @@ FROM cescoffier/native-base:latest
 COPY --from=build /workspace/app/target/*-runner /application
 ENV PORT=8080
 EXPOSE ${PORT}
-CMD ["./application", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.http.port=${PORT}"]
+ENV XMX=64m
+CMD ["./application", "+XX:+PrintHeapShape", "-Xmx${XMX}", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.http.port=${PORT}"]
