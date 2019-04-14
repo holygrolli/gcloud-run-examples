@@ -11,6 +11,12 @@ public class GreetingController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
+    GreetingController()
+    {
+        System.out.println("Java Max Memory: " + Runtime.getRuntime().maxMemory());
+        System.out.println("Java Total Memory: " + Runtime.getRuntime().totalMemory());
+    }
+
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
         return new Greeting(counter.incrementAndGet(),

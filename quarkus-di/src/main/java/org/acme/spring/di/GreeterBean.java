@@ -39,6 +39,8 @@ public class GreeterBean {
 
     public GreeterBean(MessageProducer messageProducer) {
         this.messageProducer = messageProducer;
+        System.out.println("Java Max Memory: " + Runtime.getRuntime().maxMemory());
+        System.out.println("Java Total Memory: " + Runtime.getRuntime().totalMemory());
     }
 
     public String greet(String name) {
