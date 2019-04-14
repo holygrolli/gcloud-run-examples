@@ -4,7 +4,7 @@ WORKDIR /workspace/app
 COPY pom.xml .
 COPY src src
 
-RUN mvn package -Pnative -Dnative-image.container-runtime=docker
+RUN mvn -B package -Pnative -Dnative-image.container-runtime=docker
 
 FROM cescoffier/native-base:latest
 COPY --from=build /workspace/app/target/*-runner /application
