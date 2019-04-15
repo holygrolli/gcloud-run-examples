@@ -1,4 +1,4 @@
-FROM gcr.io/gcloud-example-237604/quarkus-maven:graalvm-1.0.0-rc15 as build
+FROM grolland/quarkus-mvn-static:graalvm-1.0.0-rc15 as build
 WORKDIR /workspace/app
 
 COPY pom.xml .
@@ -6,7 +6,8 @@ COPY src src
 
 RUN mvn -B package -Pnative -Dnative-image.container-runtime=docker
 
-FROM cescoffier/native-base:latest
+FROM alpine:latest
+RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 COPY --from=build /workspace/app/target/*-runner /application
 ENV PORT=8080
 EXPOSE ${PORT}
