@@ -32,14 +32,14 @@ public class GreeterResource {
 
     @GET
     @Path("{name}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello(@PathParam("name") String name) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Greeting hello(@PathParam("name") String name) {
         return greeterBean.greet(name != null && name.length() != 0 ? name : "world");
     }
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String _default() {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Greeting _default() {
         return hello("");
     }
 }

@@ -21,10 +21,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 @Component
 public class GreeterBean {
 
     private final MessageProducer messageProducer;
+    private final AtomicLong counter = new AtomicLong();
 
     @Autowired
     @Qualifier("noopFunction")
@@ -43,8 +46,8 @@ public class GreeterBean {
         System.out.println("Java Total Memory: " + Runtime.getRuntime().totalMemory());
     }
 
-    public String greet(String name) {
+    public Greeting greet(String name) {
         final String initialValue = messageProducer.getPrefix() + " " + name + suffix;
-        return noopStringFunction.andThen(capitalizerStringFunction).apply(initialValue);
+        return new Greeting(counter.getAndIncrement(), noopStringFunction.andThen(capitalizerStringFunction).apply(initialValue));
     }
 }
